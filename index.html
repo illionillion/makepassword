@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワード自動生成</title>
+  <style>
+    header{
+      text-align: center;
+    }
+
+    main{
+      text-align: center;
+      
+      margin: 0 auto;
+    }
+
+    label{
+      margin-top: 10px;
+      display: block;
+    
+    }
+    input[type]{
+      margin: 0 auto;
+      margin-top: 5px;
+    }
+
+    /*input[type="button"]{
+
+
+    }*/
+
+
+    form{
+      text-align: left;
+      width: 210px;
+      margin: 0 auto;
+
+    }
+
+    select{
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <h1>パスワード自動生成</h1>
+  </header>
+  <main>
+    <form>
+      <input type="number" placeholder="桁数(6桁～)" min="6" id="number">
+
+
+      <select id="type">
+        <option value="1">半角英数字</option>
+        <option value="2">大文字を混ぜる</option>
+        <option value="3">数字のみ</option>
+        <option value="4">大文字のみ</option>
+      </select>
+
+      <input type="text" id="id" placeholder="〇〇のパスワード(名前)">
+      <input type="text" id="result" placeholder="パスワード">
+
+      <input type="button" id="start" value="作成">
+      <input type="button" id="copy" value="コピー">
+      <input type="button" id="save" value="保存">
+
+      <ul>
+        <li></li>
+      </ul>
+
+    </form>
+  </main>
+      <script>
+        const number=document.getElementById('number');
+        const result=document.getElementById('result');
+        const stbtn=document.getElementById('start');
+        const type=document.getElementById('type');
+        const copy=document.getElementById('copy');
+        const save=document.getElementById('save');
+        const id=document.getElementById('id');
+
+        stbtn.onclick=function make(){
+
+          var num=number.value;
+
+          switch(num){
+            case '':
+            num=6;
+            break;
+          }
+
+          var select=type.value;
+          var name=id.value;
+
+          switch(name){
+            case '':
+
+            break;
+            default:
+
+            console.log(num);
+          console.log(select);
+
+          //パスワード作成大技
+          var all=[];
+          var abc=[];
+          var ABC=[];
+          var point=[]; 
+
+          var first = "a", last = "z";
+          var FIRST ="A",LAST="Z";
+          for(var i = first.charCodeAt(0); i <= last.charCodeAt(0); i++) {
+
+            //   var a='AAQ'
+            //   var small= a.toLowerCase();
+
+            // console.log(small);
+
+              abc.push(String.fromCharCode(i));
+              
+              
+          }
+
+          for(var i = FIRST.charCodeAt(0); i <= LAST.charCodeAt(0); i++) {
+          
+              ABC.push(String.fromCharCode(i));
+
+          }
+        console.log(abc);
+        console.log(ABC);
+
+
+          for(let v=0; v<10;v++){
+            point.push(v);
+          }
+          console.log(point);
+
+            switch(select){
+                      case '1':
+
+                        for(let v=0; v<point.length;v++){
+
+                          var c=point[v];
+
+                          all.push(c);
+                        }
+                        for(let v=0; v<abc.length;v++){
+                          
+                          var c=abc[v];
+                          
+                          all.push(c);
+
+
+                        }
+                        
+                      break;
+
+                      case '2':
+
+                      for(let v=0; v<point.length;v++){
+
+                        var c=point[v];
+
+                        all.push(c);
+                        }
+
+                        for(let v=0; v<abc.length;v++){
+
+                        var c=abc[v];
+
+                        all.push(c);
+                        }
+
+                        for(let v=0; v<ABC.length;v++){
+
+                        var c=ABC[v];
+
+                        all.push(c);
+                        }
+
+                      break;
+
+                      case '3':
+
+                        for(let v=0; v<point.length;v++){
+
+                        var c=point[v];
+
+                        all.push(c);
+                        }
+
+                      break;
+
+                      case '4':
+
+                      for(let v=0; v<ABC.length;v++){
+
+                      var c=ABC[v];
+
+                      all.push(c);
+                      }
+
+                      break;
+                    }
+                    
+                    console.log(all);
+
+                    var word=[];
+                    
+
+                    for(let v=0; v<num;v++){
+
+                      var key=Math.floor(Math.random()* all.length);
+
+                     
+
+                      console.log(all[key]);
+
+                      word.push(all[key]);
+
+                    }
+
+
+                    console.log(word);
+
+
+                    var pass=word.join(',');
+                    
+                    pass=pass.replace( /,/g , "" ) ;
+
+                    console.log(pass);
+
+                    result.value=pass;
+          }
+
+          
+
+        }
+
+        copy.onclick=function copy(){
+         
+          // 文字をすべて選択
+          result.select();
+          // コピー
+          document.execCommand("copy");
+        }
+
+        // save.onclick=function save(){
+        //   var name=id.value;
+        //   var pass=result.value;
+          
+
+        //   switch(name){
+        //     case '':
+        //     break;
+
+        //     default:
+
+        //     console.log(name);
+
+        //     switch(pass){
+        //       case '':
+        //       break;
+
+        //       default:
+
+        //       console.log(pass);
+
+        //       var a= localStorage.getItem('passworddatas')
+        //       console.log(JSON.parse(a));
+
+        //       var pdata={};
+
+        //       for(let i=0;i<a.length;i++){
+        //         pdata[a[i]]=a[Object.keys(a)[i]];
+        //         for (var key in a[i]) {
+        //         console.log(a[i][key]);
+        //       }
+        //       }
+        //       pdata[name]=pass
+
+        //       localStorage.setItem('passworddatas',JSON.stringify(pdata));
+
+        //     }
+
+
+        //   }
+        // }
+
+      </script>
+
+      <!--
+
+      
+      <label>
+        <input type="checkbox" checked>半角英数字 
+      </label>
+      <label>
+        <input type="checkbox">大文字を混ぜる 
+      </label>
+      <label>
+        <input type="checkbox">数字のみ 
+      </label>
+    
+    -->
+    
+
+</body>
+</html>
