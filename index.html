@@ -33,7 +33,7 @@
 
     form{
       text-align: left;
-      width: 210px;
+      width: 200px;
       margin: 0 auto;
 
     }
@@ -84,6 +84,7 @@
       <input type="button" id="start" value="作成">
       <input type="button" id="copy" value="コピー">
       <input type="button" id="save" value="保存">
+      <input type="button" id="clear" value="クリア">
 
       <ul id="list">
         <li id="t"></li>
@@ -99,6 +100,7 @@
         const copy=document.getElementById('copy');
         const save=document.getElementById('save');
         const id=document.getElementById('id');
+        const cr=document.getElementById('clear');
 
 
         window.onload=function dataload(){
@@ -394,6 +396,13 @@
          }
         
           
+         cr.onclick=function clear(){
+
+          number.value="";
+          id.value="";
+          result.value="";
+
+         }
 
         
 
