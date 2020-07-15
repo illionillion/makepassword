@@ -41,6 +41,24 @@
     select{
       margin-top: 10px;
     }
+
+    ul{
+      
+       padding-left: 0px;
+    }
+
+    ul li{
+       border-bottom: 2px solid orange;
+       margin-bottom: 10px;
+       text-align:left;
+       text-size-adjust: 5px;
+       list-style: none;
+       white-space: pre;       
+     }
+
+     #t{
+       border-bottom: 2px solid blue !important;
+     }
   </style>
 </head>
 <body>
@@ -67,8 +85,8 @@
       <input type="button" id="copy" value="コピー">
       <input type="button" id="save" value="保存">
 
-      <ul>
-        <li></li>
+      <ul id="list">
+        <li id="t"></li>
       </ul>
 
     </form>
@@ -81,6 +99,95 @@
         const copy=document.getElementById('copy');
         const save=document.getElementById('save');
         const id=document.getElementById('id');
+
+
+        window.onload=function dataload(){
+
+          //console.log('AAA');
+          var datalist=JSON.parse(localStorage.getItem('passworddatas'));
+
+          if(localStorage.hasOwnProperty('passworddatas')) {
+
+            var datacount2=Object.keys(datalist).length;
+          }else{
+            var datacount2=0;
+          }
+
+          switch(datacount2){
+          case 0:
+          console.log('no data...');
+          document.getElementById('t').innerHTML='記録がありません。';
+        break;
+
+          default:
+
+           document.getElementById('t').innerHTML='メモリスト(↓クリックして表示)';
+
+          var keys1=[];
+          var values=[];
+
+          for(let step=0; step < datacount2; step++){
+            keys1.push(Object.keys(datalist)[step]);
+            
+
+            values.push(datalist[Object.keys(datalist)[step]]);
+            
+          }
+
+          console.log(keys1);
+          console.log(values);
+
+
+          for (let step = 0; step < datacount2; step++) {
+          // 値が 0 から 4 まで計 5 回実行される
+          //console.log('一歩西に歩く');
+
+         
+
+          var calling =localStorage.key(step);
+          var calling2 =keys1[step];
+          var calling3 =values[step];
+
+          console.log(calling);
+          console.log(calling2);
+          console.log(calling3);
+
+          const make =document.createElement('li');
+
+          list.appendChild(make);
+
+          make.id=step;
+
+          document.getElementById(step).innerHTML='<pre>'+calling2+'</pre>';
+
+          document.getElementById(step).style.height= '20px';
+
+          document.getElementById(step).onclick=function call(){
+
+            var aaa= document.getElementById(step).textContent;
+
+            id.value=aaa;
+
+
+            //const dataname=id.value;
+
+                    //var calldata=localStorage.getItem(dataname);
+                    
+
+                    //console.log(calldata);
+
+                    result.value=datalist[aaa];
+
+                    number.value=datalist[aaa].length;
+                    
+                    }
+
+        
+          }
+
+        }
+
+        }
 
         stbtn.onclick=function make(){
 
@@ -248,47 +355,47 @@
           document.execCommand("copy");
         }
 
-        // save.onclick=function save(){
-        //   var name=id.value;
-        //   var pass=result.value;
+         save.onclick=function save(){
+
+          var name=id.value;
+          var pass=result.value;
+
+          if(localStorage.hasOwnProperty('passworddatas')) {
+
+                  var datalist = JSON.parse(localStorage.getItem("passworddatas"));
+                  datalist[name] = pass;
+
+                  //保存する
+                  localStorage.setItem("passworddatas", JSON.stringify(datalist));
+
+          }else{
+
+                  var datalist={};
+
+                  datalist[name]=pass;
+
+                  localStorage.setItem('passworddatas',JSON.stringify(datalist));
+
+                  var poo=localStorage.getItem('passworddatas');
+
+                  poo= JSON.parse(poo);
+
+                  for (var i = 0; i < poo.length; i++) {
+                      for (var key in poo[i]) {
+                        console.log(poo[i][key]);
+                      }
+                    }
+
+
+          }
+
+          location.reload();
+
+         }
+        
           
 
-        //   switch(name){
-        //     case '':
-        //     break;
-
-        //     default:
-
-        //     console.log(name);
-
-        //     switch(pass){
-        //       case '':
-        //       break;
-
-        //       default:
-
-        //       console.log(pass);
-
-        //       var a= localStorage.getItem('passworddatas')
-        //       console.log(JSON.parse(a));
-
-        //       var pdata={};
-
-        //       for(let i=0;i<a.length;i++){
-        //         pdata[a[i]]=a[Object.keys(a)[i]];
-        //         for (var key in a[i]) {
-        //         console.log(a[i][key]);
-        //       }
-        //       }
-        //       pdata[name]=pass
-
-        //       localStorage.setItem('passworddatas',JSON.stringify(pdata));
-
-        //     }
-
-
-        //   }
-        // }
+        
 
       </script>
 
