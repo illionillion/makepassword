@@ -85,6 +85,7 @@
       <input type="button" id="copy" value="コピー">
       <input type="button" id="save" value="保存">
       <input type="button" id="clear" value="クリア">
+      <input type="button" id="delete" value="削除">
 
       <ul id="list">
         <li id="t"></li>
@@ -101,6 +102,7 @@
         const save=document.getElementById('save');
         const id=document.getElementById('id');
         const cr=document.getElementById('clear');
+        const del=document.getElementById('delete');
 
 
         window.onload=function dataload(){
@@ -362,6 +364,17 @@
           var name=id.value;
           var pass=result.value;
 
+          switch(name){
+            case '':
+            break;
+            default:
+
+            var resulta = window.confirm('「'+name+'」を上書き保存しますか？');
+
+            if( resulta ) {
+                console.log('OKがクリックされました');
+          
+
           if(localStorage.hasOwnProperty('passworddatas')) {
 
                   var datalist = JSON.parse(localStorage.getItem("passworddatas"));
@@ -392,6 +405,11 @@
           }
 
           location.reload();
+          }
+                else {
+                    console.log('キャンセルがクリックされました');
+          }
+          }
 
          }
         
@@ -401,6 +419,42 @@
           number.value="";
           id.value="";
           result.value="";
+
+         }
+
+
+         del.onclick=function del(){
+
+          const dnn=id.value;
+          var result = window.confirm('「'+dnn+'」を削除しますか？');
+
+          if( result ) {
+              console.log('OKがクリックされました');
+
+              if(localStorage.hasOwnProperty('passworddatas')) {
+
+                console.log('このキーは存在しています');
+
+                var datalist = JSON.parse(localStorage.getItem("passworddatas"));
+                
+                delete datalist[dnn];
+
+                localStorage.setItem('passworddatas',JSON.stringify(datalist));
+
+              }
+
+          //localStorage.removeItem(dnn);
+
+          location.reload();
+
+          cr.click();
+
+          
+
+
+          }else{
+            console.log('キャンセル');
+          }
 
          }
 
