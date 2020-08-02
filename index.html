@@ -76,6 +76,7 @@
         <option value="2">大文字を混ぜる</option>
         <option value="3">数字のみ</option>
         <option value="4">大文字のみ</option>
+        <option value="5">小文字のみ</option>
       </select>
 
       <input type="text" id="id" placeholder="〇〇のパスワード(名前)">
@@ -310,6 +311,16 @@
                       for(let v=0; v<ABC.length;v++){
 
                       var c=ABC[v];
+
+                      all.push(c);
+                      }
+
+                      break;
+                      case '5':
+
+                      for(let v=0; v<abc.length;v++){
+
+                      var c=abc[v];
 
                       all.push(c);
                       }
