@@ -448,9 +448,16 @@
          del.onclick=function del(){
 
           const dnn=id.value;
-          var result = window.confirm('「'+dnn+'」を削除しますか？');
+          
+          switch(dnn){
+            case '':
 
-          if( result ) {
+            break;
+            default:
+            
+            var result = window.confirm('「'+dnn+'」を削除しますか？');
+            if( result ) {
+             
               console.log('OKがクリックされました');
 
               if(localStorage.hasOwnProperty('passworddatas')) {
@@ -477,6 +484,10 @@
           }else{
             console.log('キャンセル');
           }
+            break;
+          }
+
+          
 
          }
 
