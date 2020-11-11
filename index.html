@@ -117,6 +117,7 @@
         const del=document.getElementById('delete');
 
 
+
         window.onload=function dataload(){
 
           //console.log('AAA');
@@ -174,7 +175,7 @@
 
           make.id=step;
 
-          document.getElementById(step).innerHTML='<pre>'+calling2+'</pre>';
+          document.getElementById(step).innerText=calling2;
 
           document.getElementById(step).style.height= '20px';
 
@@ -205,6 +206,17 @@
 
         }
 
+        function tranc(s){
+        //<h1> <script>を無効化する
+        // var s="<h1>h1&&''</h1>";
+        s=s.replace( /</g , "&lt;" ) ;
+        s=s.replace( />/g , "&gt;" ) ;
+        // document.write(s);
+        console.log(s);
+        return s;
+
+        }
+
         stbtn.onclick=function make(){
 
           var num=number.value;
@@ -217,7 +229,7 @@
 
           var select=type.value;
           var name=id.value;
-
+          name=tranc(name);
           switch(name){
             case '':
 
